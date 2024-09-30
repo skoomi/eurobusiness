@@ -1,0 +1,4 @@
+.propertyBar {
+  display: flex;
+  flex-direction: column;
+}
