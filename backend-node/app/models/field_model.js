@@ -11,3 +11,7 @@ export const Field = mongoose.model("Field", fieldSchema);
 export async function getAllFields() {
   return await Field.find();
 }
+
+export async function getFieldByNumber(orderNumber) {
+  return await Field.find({ orderNumber: orderNumber });
+}
