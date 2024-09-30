@@ -1,13 +1,22 @@
 import express from "express";
-import { router as field_routes } from "./routes/field_routes.js";
-
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+
+import { router as field_routes } from "./routes/field_routes.js";
 
 const app = express();
-dotenv.config();
 
+dotenv.config();
 await mongoose.connect(`${process.env.MONGODB_URI}`);
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    // credentials: true,
+  })
+);
 
 app.use("/fields", field_routes);
 
