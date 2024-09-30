@@ -1,8 +1,29 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
+interface Field {
+  id: number;
+  name: string;
+  orderNumber: number;
+}
 function App() {
+  const [fields, setFields] = useState<Field[]>([]);
+
+  useEffect(() => {
+    console.log("fetchFields");
+    const fetchFields = async () => {
+      const response = await fetch("http://localhost:80/fields");
+      const fields = (await response.json()) as Field[];
+      setFields(fields);
+    };
+
+    fetchFields();
+  }, []);
   return (
     <>
+      {fields.map((field) => {
+        return <span>{field.name}</span>;
+      })}
       <div className="left">
         <p>left</p>
       </div>
