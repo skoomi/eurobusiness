@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import { router as field_routes } from "./routes/field_routes.js";
+import { router as field_routes } from "./field/field.routes.js";
 
 const app = express();
 
