@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Field } from "../models/field_model.js";
+import { Field } from "../field/field.model.js";
 import dotenv from "dotenv";
 dotenv.config();
 

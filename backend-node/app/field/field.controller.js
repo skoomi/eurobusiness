@@ -1,4 +1,4 @@
-import { getAllFields } from "../models/field_model.js";
+import { getAllFields } from "./field.model.js";
 
 export async function getFields(req, res) {
   const fields = await getAllFields();
