@@ -1,10 +1,7 @@
 #root {
   /*height: 100vh;*/
   display: grid;
-  grid-template-columns: minmax(350px, 1fr) minmax(700px, 100vh) minmax(
-      350px,
-      1fr
-    );
+  grid-template-columns: auto 1188px auto;
 }
 
 .left {
@@ -26,9 +23,10 @@
   background-color: #1a1a1a;
   border: 2px solid #1a1a1a;
   display: grid;
-  grid-template-columns: 1.5fr 9fr 1.5fr;
-  grid-template-rows: 1.5fr 9fr 1.5fr;
+  grid-template-columns: 150px repeat(9, 96px) 150px;
+  grid-template-rows: 150px repeat(9, 96px) 150px;
   gap: 2px;
+  width: 1188px;
   aspect-ratio: 1/1;
 }
 .board > .corner {
@@ -44,7 +42,8 @@
 
 .row-horizontal {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: 150px;
+  grid-template-columns: repeat(9, 96px);
 }
 
 .row-horizontal > div {
@@ -52,34 +51,54 @@
 
 .row-vertical {
   display: grid;
-  grid-template-rows: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 96px);
+  grid-template-columns: 150px;
 }
 
 .row-vertical > div {
+  align-self: center;
+  justify-self: center;
 }
 
 .row-bottom {
-  grid-column: 2 / 3;
-  grid-row: 3;
+  grid-column: 2 / 11;
+  grid-row: 11;
 }
 
 .row-left {
   grid-column: 1;
-  grid-row: 2 / 3;
+  grid-row: 2 / 11;
+}
+
+.row-left > div {
+  transform: rotate(90deg);
 }
 
 .row-top {
-  grid-column: 2 / 3;
+  grid-column: 2 / 11;
   grid-row: 1;
 }
 
+.row-top > div {
+  transform: rotate(180deg);
+}
+
 .row-right {
-  grid-column: 3;
-  grid-row: 2 / 3;
+  grid-column: 11;
+  grid-row: 2 / 11;
+}
+
+.row-right > div {
+  transform: rotate(-90deg);
 }
 
 .board-center {
-  grid-column: 2;
-  grid-row: 2;
+  grid-column: 2 / 11;
+  grid-row: 2 / 11;
   background-color: #ffffff;
+}
+
+.field {
+  width: 96px;
+  height: 150px;
 }
