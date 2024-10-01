@@ -28,7 +28,7 @@ function App() {
       const field = fields.find((field) => field.orderNumber == i);
       if (field) {
         fieldsToRender.push(
-          <div>
+          <div className="field">
             {field.orderNumber} {field.name}
           </div>
         );
