@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { router as field_routes } from "./field/field.routes.js";
+import { router as user_routes } from "./user/user.routes.js";
 
 const app = express();
+app.use(express.json());
 
 dotenv.config();
 await mongoose.connect(`${process.env.MONGODB_URI}`);
@@ -19,6 +21,7 @@ app.use(
 );
 
 app.use("/fields", field_routes);
+app.use("/users", user_routes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
