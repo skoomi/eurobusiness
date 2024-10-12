@@ -7,3 +7,11 @@ const userSchema = new mongoose.Schema({
 });
 
 export const User = mongoose.model("User", userSchema);
+
+export async function createUser(email, password) {
+  return await User.create({ username: "Nazwa gracza", email, password });
+}
+
+export async function getUserByEmail(email) {
+  return await User.findOne({ email: email });
+}

@@ -1,5 +1,3 @@
-import styles from "./Property.module.css";
-
 const colorMap: { [key: string]: string } = {
   Ateny: "yellow",
   Saloniki: "yellow",

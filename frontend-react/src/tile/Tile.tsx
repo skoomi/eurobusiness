@@ -1,4 +1,3 @@
-import styles from "./Tile.module.css";
 import Property from "./Property/Property.tsx";
 import Corner from "./Corner/Corner.tsx";
 

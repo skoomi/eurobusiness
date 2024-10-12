@@ -1,3 +1,4 @@
-import { start } from "./app/app.js";
+import { startHttp, startHttps } from "./app/app.js";
 
-start();
+startHttps();
+// startHttp();
