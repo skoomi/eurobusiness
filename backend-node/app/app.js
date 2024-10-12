@@ -2,29 +2,26 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-// import fs from "fs";
-// import path from "path";
 import https from "https";
 
 import { router as field_routes } from "./field/field.routes.js";
 import { router as user_routes } from "./user/user.routes.js";
 
-// Load SSL certificate and key
-// const __dirname = path.resolve();
-// const httpsOptions = {
-//   key: fs.readFileSync(path.join(__dirname, "ssl", "key.pem")),
-//   cert: fs.readFileSync(path.join(__dirname, "ssl", "cert.pem")),
-// };
+// użycie env dev albo prod
+const envFileName = `.env.${process.env.NODE_ENV || "development"}`;
+dotenv.config({ path: envFileName });
 
+//podłączenie do bazy
+await mongoose.connect(`${process.env.MONGODB_URI}`);
+
+//EXPRESS
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-dotenv.config();
-await mongoose.connect(`${process.env.MONGODB_URI}`);
 
-// Enable CORS for the '/users' route only
-app.options("/users", cors()); // Preflight request handler for /users route
+// Preflight CORS dla /users
+app.options("/users", cors());
 
 app.use(
   cors({
@@ -43,12 +40,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-export function startHttp() {
-  app.listen(80, () => {
-    console.log("Server started on port 80 ");
-  });
-}
-export function startHttps() {
+export function start() {
   app.listen(80, () => {
     console.log("Server started on port 80 ");
   });

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "prod": "node index.js"
+    "prod": "cross-env NODE_ENV=production node index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "cross-env": "^7.0.3",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
     "prettier": "3.3.3"
