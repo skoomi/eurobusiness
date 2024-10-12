@@ -6,10 +6,10 @@ export default function Registration() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault(); // Prevent form default action
-    console.log("handleSubmit");
 
     const user = { email, password };
     const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
+
     try {
       const response = await fetch(serverUrl + "/users", {
         method: "POST",
@@ -22,9 +22,6 @@ export default function Registration() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.error("Error:", error);
     }
