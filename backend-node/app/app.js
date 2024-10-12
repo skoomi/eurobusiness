@@ -41,10 +41,15 @@ app.get("/", (req, res) => {
 });
 
 export function start() {
-  app.listen(80, () => {
-    console.log("Server started on port 80 ");
-  });
-  https.createServer(app).listen(443, () => {
-    console.log("Server started on port 443 ");
-  });
+  if (process.env.NODE_ENV === "development") {
+    app.listen(80, () => {
+      console.log("Development server started on port 80 ");
+    });
+  } else if (process.env.NODE_ENV === "production") {
+    https.createServer(app).listen(443, () => {
+      console.log("Production server started on port 443 ");
+    });
+  } else {
+    console.log("Cant find process.env.NODE_ENV. Aborted.");
+  }
 }
