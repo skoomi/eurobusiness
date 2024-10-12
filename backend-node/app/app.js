@@ -28,7 +28,7 @@ app.options("/users", cors()); // Preflight request handler for /users route
 
 app.use(
   cors({
-    origin: ["https://eurobusiness-1.onrender.com"],
+    origin: [`${process.env.CORS_ORIGIN}`],
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type",
     optionsSuccessStatus: 200,

@@ -9,9 +9,9 @@ export default function Registration() {
     console.log("handleSubmit");
 
     const user = { email, password };
-    const nodeAppHttpsUrl = import.meta.env.VITE_RENDER_NODE_HTTPS_URL;
+    const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
     try {
-      const response = await fetch(nodeAppHttpsUrl + "/users", {
+      const response = await fetch(serverUrl + "/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",

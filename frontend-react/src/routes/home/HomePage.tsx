@@ -12,8 +12,8 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchFields = async () => {
-      const asd = import.meta.env.VITE_RENDER_NODE_HTTPS_URL;
-      const response = await fetch(asd + "/fields");
+      const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
+      const response = await fetch(serverUrl + "/fields");
       const resField = (await response.json()) as Field[];
       setFields(resField);
     };
