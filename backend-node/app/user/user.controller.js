@@ -6,17 +6,18 @@ export async function registerUser(req, res) {
 
   // Czy pola nie są puste
   if (!email || !password) {
-    res.status(400).send("All fields are required");
+    return res.status(400).send("All fields are required");
   }
 
   // Check if email already exists
   const emailExists = await getUserByEmail(email);
   if (emailExists) {
-    res.status(400).send("User with given email already exists");
+    return res.status(422).send("User with given email already exists");
   }
 
   const hashedPassword = await hash(password);
 
   await createUser(email, hashedPassword);
-  res.json({ message: "User registered successfully" });
+
+  return res.status(201).json({ message: "User registered successfully" });
 }
