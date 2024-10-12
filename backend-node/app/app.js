@@ -46,6 +46,9 @@ export function start() {
       console.log("Development server started on port 80 ");
     });
   } else if (process.env.NODE_ENV === "production") {
+    app.listen(80, () => {
+      console.log("Production server started on port 80 ");
+    });
     https.createServer(app).listen(443, () => {
       console.log("Production server started on port 443 ");
     });
