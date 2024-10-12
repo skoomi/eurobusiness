@@ -25,3 +25,5 @@ ssl/*
 *.sw?
 
 .env
+.env.development
+.env.production
