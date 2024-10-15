@@ -3,4 +3,4 @@ import { registerUser } from "./user.controller.js";
 
 export const router = Router();
 
-router.post("/", registerUser);
+router.post("/register", registerUser);

@@ -1,5 +1,5 @@
 import { hash } from "../auth/crypt.js";
-import { createUser, getUserByEmail } from "./users.model.js";
+import { createUser, checkUserExists } from "./users.model.js";
 
 export async function registerUser(req, res) {
   const { email, password } = req.body;
@@ -10,7 +10,7 @@ export async function registerUser(req, res) {
   }
 
   // Check if email already exists
-  const emailExists = await getUserByEmail(email);
+  const emailExists = await checkUserExists(email);
   if (emailExists) {
     return res.status(422).send("User with given email already exists");
   }

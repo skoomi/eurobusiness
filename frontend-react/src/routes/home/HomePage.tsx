@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Leaderboard from "../../leaderboard/Leaderboard";
-import Menu from "../../menu/Menu";
+import Leaderboard from "../../components/leaderboard/Leaderboard";
+import Menu from "../../components/menu/Menu";
 
 interface Field {
   id: number;

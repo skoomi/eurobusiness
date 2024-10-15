@@ -15,3 +15,7 @@ export async function createUser(email, password) {
 export async function getUserByEmail(email) {
   return await User.findOne({ email: email });
 }
+
+export async function checkUserExists(email) {
+  return await User.exists({ email: email });
+}

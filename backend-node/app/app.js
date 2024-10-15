@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -6,6 +7,7 @@ import https from "https";
 
 import { router as field_routes } from "./field/field.routes.js";
 import { router as user_routes } from "./user/user.routes.js";
+import { router as auth_routes } from "./auth/auth.routes.js";
 
 // użycie env dev albo prod
 const envFileName = `.env.${process.env.NODE_ENV || "development"}`;
@@ -20,6 +22,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// //SESJE
+// app.use(
+//   session({
+//     secret: "tajny sekret sesyjny",
+//     saveUninitialized: false,
+//     resave: false,
+//   })
+// );
+
 // Preflight CORS dla /users
 app.options("/users", cors());
 
@@ -29,10 +40,11 @@ app.use(
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type",
     optionsSuccessStatus: 200,
-    // credentials: true,
+    credentials: true,
   })
 );
 
+app.use("/auth", auth_routes);
 app.use("/fields", field_routes);
 app.use("/users", user_routes);
 
