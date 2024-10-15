@@ -1,4 +1,4 @@
-import { useAuthService } from "../../auth/AuthService";
+import { useAuthService } from "../../services/AuthService";
 
 export default function Logout() {
   const { logout } = useAuthService();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ModalError from "../modals/ModalError";
-import { useAuthService } from "../../auth/AuthService";
+import { useAuthService } from "../../services/AuthService";
 
 export default function Login() {
   const { login } = useAuthService();

@@ -1,4 +1,4 @@
-import { useAuthContext } from "../../auth/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import Login from "../auth/Login";
 import Logout from "../auth/Logout";
 import Registration from "../auth/Registration";
