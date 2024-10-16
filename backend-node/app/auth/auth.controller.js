@@ -12,6 +12,11 @@ export function checkAuth(req, res, next) {
 }
 
 export async function authenticate(req, res) {
+  console.log("");
+  console.log("authenticate req.headers");
+  console.log(req.headers);
+  console.log("authenticate req.body");
+  console.log(req.body);
   const { email, password } = req.body;
 
   // Czy pola nie są puste
@@ -30,17 +35,24 @@ export async function authenticate(req, res) {
   }
   const token = generateToken(user);
 
-  res
-    .cookie("token", token, {
-      httpOnly: true, // Not accessible via JavaScript
-      secure: true, // Ensures the cookie is only sent over HTTPS
-      maxAge: 3600000, // 1 hour
-      sameSite: "Strict", // Prevents cross-site requests
-    })
-    .send();
+  res.cookie("token", token, {
+    httpOnly: true, // Not accessible via JavaScript
+    // secure: true, // Ensures the cookie is only sent over HTTPS
+    // maxAge: 3600000, // 1 hour
+    // sameSite: "Strict", // Prevents cross-site requests
+  });
+
+  console.log("");
+  console.log("authenticate res.headers");
+  console.log(res.headers);
+  console.log("authenticate res.body");
+  console.log(res.body);
+  console.log("authenticate res.cookie");
+  console.log(res.cookie);
+  res.send();
 }
 
 export function logOut(req, res) {
-  req.session.destroy();
-  res.send("Logged out");
+  res.clearCookie("token");
+  return res.send("Logged out");
 }

@@ -10,38 +10,40 @@ export function useAuthService() {
   const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
   const login = async (authData: AuthData) => {
-    const response = await fetch(serverUrl + "/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify(authData),
-      // credentials: "include", // dodaje ciasteczka
-    });
+    try {
+      const response = await fetch(serverUrl + "/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(authData),
+        // credentials: "include", // dodaje ciasteczka
+      });
+      if (response.ok) {
+        setIsAuthenticated(true);
+        const resToken = await response.json();
+        setJwtToken(resToken);
+      }
 
-    if (response.status == 404) {
-      throw new Error("Login failed - account for that email does not exist.");
-    } else if (response.status === 401) {
-      throw new Error("Login failed - wrong password.");
-    } else if (response.status === 400) {
-      throw new Error("Login failed - all fields required.");
-    } else if (response.ok) {
-      setIsAuthenticated(true);
-      const resToken = await response.json();
-      setJwtToken(resToken);
+      return response.status;
+    } catch (error) {
+      throw new Error((error as Error).message);
     }
   };
 
   const logout = async () => {
-    const response = await fetch(serverUrl + "/auth/logout", {
-      method: "GET",
-      credentials: "include", // dodaje ciasteczka
-    });
-
-    if (response.ok) {
-      setIsAuthenticated(false);
-      setJwtToken(undefined);
-    } else {
+    try {
+      const response = await fetch(serverUrl + "/auth/logout", {
+        method: "GET",
+        credentials: "include", // dodaje ciasteczka
+      });
+      console.log("front response:");
+      console.log(response);
+      if (response.ok) {
+        setIsAuthenticated(false);
+        setJwtToken(undefined);
+      }
+    } catch {
       throw new Error("Logout failed ");
     }
   };

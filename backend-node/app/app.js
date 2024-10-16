@@ -7,7 +7,6 @@ import https from "https";
 import { router as field_routes } from "./field/field.routes.js";
 import { router as user_routes } from "./user/user.routes.js";
 import { router as auth_routes } from "./auth/auth.routes.js";
-
 // użycie env dev albo prod
 const envFileName = `.env.${process.env.NODE_ENV || "development"}`;
 dotenv.config({ path: envFileName });
@@ -20,15 +19,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// //SESJE
-// app.use(
-//   session({
-//     secret: "tajny sekret sesyjny",
-//     saveUninitialized: false,
-//     resave: false,
-//   })
-// );
+// app.use(cookieParser());
 
 // Preflight CORS dla /users
 app.options("/users", cors());
@@ -39,7 +30,7 @@ app.use(
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type",
     optionsSuccessStatus: 200,
-    credentials: true,
+    credentials: false,
   })
 );
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ModalError from "../modals/ModalError";
 
 export default function Registration() {
   const [email, setEmail] = useState("");
@@ -39,11 +38,6 @@ export default function Registration() {
 
   return (
     <>
-      <ModalError
-        show={showModal}
-        text={modalText}
-        onClick={() => setShowModal(false)}
-      />
       <div className="bg-white w-96 p-4 shadow-xl">
         <div className="border-4 border-solid border-black p-4 grid gap-2">
           <form method="post" onSubmit={handleSubmit} className="grid gap-2">
