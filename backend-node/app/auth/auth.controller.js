@@ -34,10 +34,10 @@ export async function authenticate(req, res) {
     httpOnly: true, // Not accessible via JavaScript
     secure: true, // Ensures the cookie is only sent over HTTPS
     maxAge: 3600000, // 1 hour
-    sameSite: "Lax", // Prevents cross-site requests
+    sameSite: "None", // Prevents cross-site requests
   });
 
-  res.redirect("/");
+  res.send();
 }
 
 export function logOut(req, res) {
