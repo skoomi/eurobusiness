@@ -20,11 +20,8 @@ export function generateToken(user) {
   );
 }
 
-export function authToken(req, res, next) {
-  console.log("authToken req:");
-  console.log(req.headers);
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+export function cookieJwtAuth(req, res, next) {
+  const token = req.cookies.token;
   if (token == null) return res.status(401).send();
 
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
