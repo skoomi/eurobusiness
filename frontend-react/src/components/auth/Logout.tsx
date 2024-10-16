@@ -6,7 +6,7 @@ export default function Logout() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
 
-    logout();
+    await logout();
   };
 
   return (

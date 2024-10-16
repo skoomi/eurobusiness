@@ -1,28 +1,49 @@
-import { useState } from "react";
-import ModalError from "../modals/ModalError";
+import { useRef, useState } from "react";
 import { useAuthService } from "../../services/AuthService";
+import Modal from "../modal/Modal";
 
 export default function Login() {
   const { login } = useAuthService();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalText] = useState<string>("");
+  const loginModalRef = useRef<HTMLDialogElement>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
-
-    login({ email, password });
+    try {
+      const responseCode = await login({ email, password });
+      if (responseCode === 401) {
+        setModalMessage("Błędne hasło");
+        loginModalRef.current?.showModal();
+      } else if (responseCode === 404) {
+        setModalMessage("Użytkownik nie istnieje");
+        loginModalRef.current?.showModal();
+      } else if (responseCode === 400) {
+        setModalMessage("Uzupełnij oba pola");
+        loginModalRef.current?.showModal();
+      }
+    } catch (error) {
+      console.log(error);
+      setModalMessage("Nieznany błąd");
+      loginModalRef.current?.showModal();
+    }
   };
+
+  const closeModal = () => {
+    loginModalRef.current?.close();
+  };
+
   return (
     <>
-      <ModalError
-        show={showModal}
-        text={modalText}
-        onClick={() => setShowModal(false)}
-      />
+      <Modal
+        ref={loginModalRef}
+        title="Błąd logowania"
+        message={modalMessage}
+        close={closeModal}
+      ></Modal>
       <div className="bg-white w-96 p-4 shadow-xl">
         <div className="border-4 border-solid border-black p-4 grid gap-2">
           <form method="post" onSubmit={handleSubmit} className="grid gap-2">

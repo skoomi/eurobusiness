@@ -1,12 +1,8 @@
 import { useState } from "react";
-import ModalError from "../modals/ModalError";
 
 export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [showModal, setShowModal] = useState(false);
-  const [modalText, setModalText] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
@@ -15,35 +11,20 @@ export default function Registration() {
     const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
     try {
-      const response = await fetch(serverUrl + "/users/register", {
+      await fetch(serverUrl + "/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(registerReqBody),
       });
-
-      if (response.status == 422) {
-        setModalText("Użytkownik o takiej nazwie już istnieje.");
-        setShowModal(true);
-      } else if (response.status === 400) {
-        setModalText("Wypełnij pola email i hasło.");
-        setShowModal(true);
-      }
     } catch (error) {
-      setModalText("Błąd połączenia z serwerem.");
-      setShowModal(true);
       console.log(error);
     }
   };
 
   return (
     <>
-      <ModalError
-        show={showModal}
-        text={modalText}
-        onClick={() => setShowModal(false)}
-      />
       <div className="bg-white w-96 p-4 shadow-xl">
         <div className="border-4 border-solid border-black p-4 grid gap-2">
           <form method="post" onSubmit={handleSubmit} className="grid gap-2">

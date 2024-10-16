@@ -30,17 +30,17 @@ export async function authenticate(req, res) {
   }
   const token = generateToken(user);
 
-  res
-    .cookie("token", token, {
-      httpOnly: true, // Not accessible via JavaScript
-      secure: true, // Ensures the cookie is only sent over HTTPS
-      maxAge: 3600000, // 1 hour
-      sameSite: "Strict", // Prevents cross-site requests
-    })
-    .send();
+  res.cookie("token", token, {
+    httpOnly: true, // Not accessible via JavaScript
+    secure: true, // Ensures the cookie is only sent over HTTPS
+    maxAge: 3600000, // 1 hour
+    sameSite: "None", // Prevents cross-site requests
+  });
+
+  res.send();
 }
 
 export function logOut(req, res) {
-  req.session.destroy();
-  res.send("Logged out");
+  res.clearCookie("token");
+  return res.send("Logged out");
 }

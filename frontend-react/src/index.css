@@ -6,7 +6,18 @@ body {
   background-color: #f8fafc !important;
 }
 
-.card {
+dialog {
+  top: -40%;
+  border: 0;
+  border-radius: 0rem;
+}
+dialog:focus {
+  outline: 0;
+}
+dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.3);
+
+  /* @apply backdrop-blur; */
 }
 
 .background-blurred {
