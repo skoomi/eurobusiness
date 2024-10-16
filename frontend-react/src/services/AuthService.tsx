@@ -17,7 +17,7 @@ export function useAuthService() {
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(authData),
-        // credentials: "include", // dodaje ciasteczka
+        credentials: "include", // dodaje ciasteczka
       });
       if (response.ok) {
         setIsAuthenticated(true);
