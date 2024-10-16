@@ -30,7 +30,7 @@ app.use(
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type",
     optionsSuccessStatus: 200,
-    credentials: false,
+    credentials: true,
   })
 );
 
