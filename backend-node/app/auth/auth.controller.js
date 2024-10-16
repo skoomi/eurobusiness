@@ -37,9 +37,9 @@ export async function authenticate(req, res) {
 
   res.cookie("token", token, {
     httpOnly: true, // Not accessible via JavaScript
-    // secure: true, // Ensures the cookie is only sent over HTTPS
-    // maxAge: 3600000, // 1 hour
-    // sameSite: "Strict", // Prevents cross-site requests
+    secure: true, // Ensures the cookie is only sent over HTTPS
+    maxAge: 3600000, // 1 hour
+    sameSite: "Lax", // Prevents cross-site requests
   });
 
   console.log("");
