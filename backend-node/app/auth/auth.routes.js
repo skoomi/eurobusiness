@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { authenticate, logOut } from "./auth.controller.js";
+import { login, logOut } from "./auth.controller.js";
 import { cookieJwtAuth } from "./crypt.js";
 
 export const router = Router();
 
-router.post("/login", authenticate);
+router.post("/login", login);
 router.get("/logout", cookieJwtAuth, logOut);

@@ -1,12 +1,17 @@
 import { useAuthContext } from "../contexts/AuthContext";
+import { User } from "../models/User";
 
-interface AuthData {
+type AuthData = {
   email: string;
   password: string;
-}
+};
+type AuthDataResponse = {
+  message: string;
+  user: User;
+};
 
 export function useAuthService() {
-  const { setJwtToken, setIsAuthenticated } = useAuthContext();
+  const { setIsAuthenticated, setUser } = useAuthContext();
   const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
   const login = async (authData: AuthData) => {
@@ -20,9 +25,9 @@ export function useAuthService() {
         credentials: "include", // dodaje ciasteczka
       });
       if (response.ok) {
+        const responseDataJson = (await response.json()) as AuthDataResponse;
+        setUser(responseDataJson.user);
         setIsAuthenticated(true);
-        const resToken = await response.json();
-        setJwtToken(resToken);
       }
 
       return response.status;
@@ -37,11 +42,8 @@ export function useAuthService() {
         method: "GET",
         credentials: "include", // dodaje ciasteczka
       });
-      console.log("front response:");
-      console.log(response);
       if (response.ok) {
         setIsAuthenticated(false);
-        setJwtToken(undefined);
       }
     } catch {
       throw new Error("Logout failed ");

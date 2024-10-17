@@ -1,25 +1,32 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { User } from "../models/User";
 
 type AuthContext = {
-  jwtToken: string | undefined;
-  setJwtToken: React.Dispatch<React.SetStateAction<string | undefined>>;
+  // Nie przechowuję, bo przeglądarka ogarnia je w ciasteczkach
+  // jwtToken: string | undefined;
+  // setJwtToken: React.Dispatch<React.SetStateAction<string | undefined>>;
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [jwtToken, setJwtToken] = useState<string | undefined>(undefined);
+  // const [jwtToken, setJwtToken] = useState<string | undefined>(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   return (
     <AuthContext.Provider
       value={{
-        jwtToken,
-        setJwtToken,
+        // jwtToken,
+        // setJwtToken,
         isAuthenticated,
         setIsAuthenticated,
+        user,
+        setUser,
       }}
     >
       {children}

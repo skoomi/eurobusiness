@@ -1,17 +1,7 @@
 import { getUserByEmail } from "../user/users.model.js";
 import { compare, generateToken } from "./crypt.js";
 
-export function checkAuth(req, res, next) {
-  let isAuthenticated = req.session.user && req.session.user.isAuthenticated;
-
-  if (isAuthenticated) {
-    next();
-  } else {
-    res.status(401).send("Unauthorized, please log in.");
-  }
-}
-
-export async function authenticate(req, res) {
+export async function login(req, res) {
   const { email, password } = req.body;
 
   // Czy pola nie są puste
@@ -37,7 +27,16 @@ export async function authenticate(req, res) {
     sameSite: "None", // Prevents cross-site requests
   });
 
-  res.send();
+  res.json({
+    message: "Login successful",
+    user: {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+      points: user.points,
+      gamesPlayed: user.gamesPlayed,
+    },
+  });
 }
 
 export function logOut(req, res) {

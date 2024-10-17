@@ -1,4 +1,7 @@
-export interface User {
+export type User = {
+  id: string;
   email: string;
-  token: string;
-}
+  username: string;
+  points: number;
+  gamesPlayed: number;
+};

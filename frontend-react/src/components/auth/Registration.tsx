@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Modal from "../modal/Modal";
 
 export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [modalMessage, setModalMessage] = useState("");
+  const loginModalRef = useRef<HTMLDialogElement>(null);
+  const closeModal = () => {
+    loginModalRef.current?.close();
+  };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
 
@@ -11,20 +17,35 @@ export default function Registration() {
     const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
     try {
-      await fetch(serverUrl + "/users/register", {
+      const response = await fetch(serverUrl + "/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(registerReqBody),
       });
+      if (response.status === 201) {
+        setModalMessage("Utworzono użytkownika Możesz się zalogować");
+        loginModalRef.current?.showModal();
+      } else if (response.status === 422) {
+        setModalMessage("Użytwkonik z podanym email juz istnieje");
+        loginModalRef.current?.showModal();
+      }
     } catch (error) {
       console.log(error);
+      setModalMessage("Nieznany błąd");
+      loginModalRef.current?.showModal();
     }
   };
 
   return (
     <>
+      <Modal
+        ref={loginModalRef}
+        title="Błąd logowania"
+        message={modalMessage}
+        close={closeModal}
+      ></Modal>
       <div className="bg-white w-96 p-4 shadow-xl">
         <div className="border-4 border-solid border-black p-4 grid gap-2">
           <form method="post" onSubmit={handleSubmit} className="grid gap-2">

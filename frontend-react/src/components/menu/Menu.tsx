@@ -2,6 +2,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import Login from "../auth/Login";
 import Logout from "../auth/Logout";
 import Registration from "../auth/Registration";
+import User from "../user/User";
 
 export default function Menu() {
   const { isAuthenticated } = useAuthContext();
@@ -9,16 +10,18 @@ export default function Menu() {
   return (
     <div className="grid gap-2 m-10 ">
       {isAuthenticated && <Logout />}
-
-      <div className="bg-white w-96 p-4 shadow-xl">
-        <div className="border-4 border-solid border-black p-4 grid gap-2">
-          <button className="border-4 border-solid border-black p-4 bg-blue">
-            <p className="text-center text-white text-2xl">
-              Zagraj bez rejestracji
-            </p>
-          </button>
+      {isAuthenticated && <User />}
+      {!isAuthenticated && (
+        <div className="bg-white w-96 p-4 shadow-xl">
+          <div className="border-4 border-solid border-black p-4 grid gap-2">
+            <button className="border-4 border-solid border-black p-4 bg-blue">
+              <p className="text-center text-white text-2xl">
+                Zagraj bez rejestracji
+              </p>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {!isAuthenticated && <Login />}
       {!isAuthenticated && <Registration />}

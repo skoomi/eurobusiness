@@ -17,7 +17,12 @@ export async function registerUser(req, res) {
 
   const hashedPassword = await hash(password);
 
-  await createUser(email, hashedPassword);
+  await createUser({
+    email: email,
+    password: hashedPassword,
+    points: 0,
+    gamesPlayed: 0,
+  });
 
   return res.status(201).json({ message: "User registered successfully" });
 }
