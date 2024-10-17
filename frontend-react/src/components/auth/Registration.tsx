@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import Modal from "../modal/Modal";
 
 export default function Registration() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +14,7 @@ export default function Registration() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
 
-    const registerReqBody = { email, password };
+    const registerReqBody = { username, email, password };
     const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
     try {
@@ -27,8 +28,14 @@ export default function Registration() {
       if (response.status === 201) {
         setModalMessage("Utworzono użytkownika Możesz się zalogować");
         loginModalRef.current?.showModal();
+        // setUsername("");
+        // setEmail("");
+        // setPassword("");
       } else if (response.status === 422) {
-        setModalMessage("Użytwkonik z podanym email juz istnieje");
+        setModalMessage("Użytkownik z podanym email juz istnieje");
+        loginModalRef.current?.showModal();
+      } else if (response.status === 400) {
+        setModalMessage("Uzupełnij wszystkie pola");
         loginModalRef.current?.showModal();
       }
     } catch (error) {
@@ -55,6 +62,14 @@ export default function Registration() {
             >
               <p className="text-center text-white text-2xl">Zarejestruj się</p>
             </button>
+
+            <input
+              className="justify-self-center border-2 border-solid border-[#1E293B] h-12 w-64 text-center "
+              placeholder="username"
+              value={username}
+              onChange={(event) => setUsername(event.currentTarget.value)}
+            />
+
             <input
               className="justify-self-center border-2 border-solid border-[#1E293B] h-12 w-64 text-center "
               placeholder="email"

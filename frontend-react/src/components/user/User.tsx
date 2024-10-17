@@ -22,12 +22,10 @@ export default function User() {
                 <p className="text-center text-white text-2xl">
                   {user.username}
                 </p>
-                <p className="text-center  text-2xl">email: {user.email}</p>
-                <p className="text-center  text-2xl">
-                  Games played: {user.gamesPlayed}
-                </p>
-                <p className="text-center  text-2xl">Points: {user.point}</p>
               </div>
+              <p className="ml-4 text-2xl">email: {user.email}</p>
+              <p className="ml-4 text-2xl">games played: {user.gamesPlayed}</p>
+              <p className="ml-4 text-2xl">points: {user.points}</p>
             </form>
           </div>
         </div>
