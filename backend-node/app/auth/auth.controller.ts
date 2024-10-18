@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import { getUserByEmail } from "../user/users.model.js";
 import { compare, generateToken } from "./crypt.js";
 
-export async function login(req, res) {
+export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
 
   // Czy pola nie są puste
@@ -38,7 +39,7 @@ export async function login(req, res) {
   });
 }
 
-export function logOut(req, res) {
+export function logOut(req: Request, res: Response) {
   res.clearCookie("token");
   return res.send("Logged out");
 }

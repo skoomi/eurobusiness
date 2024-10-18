@@ -1,11 +1,11 @@
 {
   "name": "eurobusiness-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app/index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
+    "dev": "tsx watch ./app/index.ts",
     "prod": "cross-env NODE_ENV=production node index.js"
   },
   "keywords": [],
@@ -20,13 +20,22 @@
     "express": "^4.21.0",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.3"
+    "mongoose": "^8.6.3",
+    "tsx": "^4.19.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.7.6",
     "cross-env": "^7.0.3",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
-    "prettier": "3.3.3"
+    "prettier": "3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   }
 }

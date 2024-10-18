@@ -1,6 +1,6 @@
-import { getAllFields } from "./field.model.js";
+import { getAllFields } from "./field.model.ts";
 
-export async function getFields(req, res) {
+export async function getFields(req: Request, res: Response) {
   const fields = await getAllFields();
   res.send(
     fields.map((field) => ({

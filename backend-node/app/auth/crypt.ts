@@ -1,32 +1,32 @@
 import { genSalt, hash as bcryptHash, compare as bcrypCompare } from "bcrypt";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const hash = async (plainPass) => {
+export const hash = async (plainPass: string) => {
   const salt = await genSalt(12);
   return await bcryptHash(plainPass, salt);
 };
 
-export const compare = async (plainPass, hash) => {
+export const compare = async (plainPass: string, hash: string) => {
   return await bcrypCompare(plainPass, hash);
 };
 
-export function generateToken(user) {
+export function generateToken(user: { _id: string; email: string }) {
   return jwt.sign(
     { id: user._id, email: user.email },
-    process.env.JWT_SECRET_KEY,
+    `${process.env.JWT_SECRET_KEY}`,
     {
       expiresIn: "1h",
     }
   );
 }
 
-export function cookieJwtAuth(req, res, next) {
+export function cookieJwtAuth(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies.token;
   if (token == null) return res.status(401).send();
 
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+  jwt.verify(token, `${process.env.JWT_SECRET_KEY}`, (err: any, user: any) => {
     if (err) return res.status(403).send();
-    req.user = user;
     next();
   });
 }

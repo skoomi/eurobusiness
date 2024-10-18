@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { login, logOut } from "./auth.controller.js";
-import { cookieJwtAuth } from "./crypt.js";
+import { login, logOut } from "./auth.controller.ts";
+import { cookieJwtAuth } from "./crypt.ts";
 
 export const router = Router();
 
