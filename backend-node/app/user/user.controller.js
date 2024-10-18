@@ -3,6 +3,7 @@ import {
   createUser,
   checkUserWithEmailExists,
   checkUserWithUsernameExists,
+  getTopUsers,
 } from "./users.model.js";
 
 export async function registerUser(req, res) {
@@ -34,4 +35,17 @@ export async function registerUser(req, res) {
   });
 
   return res.status(201).json({ message: "User registered successfully" });
+}
+
+export async function getTop10Scores(req, res) {
+  const top10Users = await getTopUsers(10);
+  if (top10Users) {
+    return res.status(200).json(
+      top10Users.map((user) => {
+        return { username: user.username, points: user.points };
+      })
+    );
+  } else {
+    return res.status(500).send("Database error");
+  }
 }

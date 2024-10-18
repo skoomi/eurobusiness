@@ -31,6 +31,10 @@ export async function getUserByEmail(email) {
   return await User.findOne({ email: email });
 }
 
+export async function getTopUsers(limit) {
+  return await User.find().limit(limit).sort("points");
+}
+
 export async function checkUserWithEmailExists(email) {
   return await User.exists({ email: email });
 }

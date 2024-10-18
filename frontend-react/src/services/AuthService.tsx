@@ -5,10 +5,6 @@ type AuthData = {
   email: string;
   password: string;
 };
-type AuthDataResponse = {
-  message: string;
-  user: User;
-};
 
 export function useAuthService() {
   const { setIsAuthenticated, setUser } = useAuthContext();
@@ -25,8 +21,8 @@ export function useAuthService() {
         credentials: "include", // dodaje ciasteczka
       });
       if (response.ok) {
-        const responseDataJson = (await response.json()) as AuthDataResponse;
-        setUser(responseDataJson.user);
+        const user = (await response.json()) as User;
+        setUser(user);
         setIsAuthenticated(true);
       }
 
@@ -43,6 +39,7 @@ export function useAuthService() {
         credentials: "include", // dodaje ciasteczka
       });
       if (response.ok) {
+        setUser(undefined);
         setIsAuthenticated(false);
       }
     } catch {

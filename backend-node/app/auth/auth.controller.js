@@ -28,7 +28,6 @@ export async function login(req, res) {
   });
 
   res.json({
-    message: "Login successful",
     user: {
       id: user._id,
       email: user.email,

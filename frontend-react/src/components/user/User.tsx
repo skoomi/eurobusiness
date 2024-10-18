@@ -2,7 +2,6 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function User() {
   const { user } = useAuthContext();
-
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault(); // Prevent form default action
 
@@ -11,7 +10,7 @@ export default function User() {
 
   return (
     <>
-      {user && (
+      {user ? (
         <div className="bg-white w-96 p-4 shadow-xl">
           <div className="border-4 border-solid border-black p-4 grid gap-2">
             <form method="post" className="grid gap-2">
@@ -29,6 +28,8 @@ export default function User() {
             </form>
           </div>
         </div>
+      ) : (
+        <p>Loading user data...</p> // Display a loader or fallback
       )}
     </>
   );

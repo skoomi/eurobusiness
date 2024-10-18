@@ -15,7 +15,10 @@ export default function Login() {
     event.preventDefault(); // Prevent form default action
     try {
       const responseCode = await login({ email, password });
-      if (responseCode === 401) {
+      if (responseCode === 200) {
+        setModalMessage("Zalogowano");
+        loginModalRef.current?.showModal();
+      } else if (responseCode === 401) {
         setModalMessage("Błędne hasło");
         loginModalRef.current?.showModal();
       } else if (responseCode === 404) {
