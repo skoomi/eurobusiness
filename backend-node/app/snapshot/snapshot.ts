@@ -1,3 +1,3 @@
 type Snapshot = {
-    
-}
+  players: User[];
+};

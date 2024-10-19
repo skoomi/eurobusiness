@@ -4,8 +4,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
-import HomePage from "./routes/home/HomePage";
+import HomePage from "./routes//HomePage";
 import { AuthProvider } from "./contexts/AuthContext";
+import GamePage from "./routes/GamePage";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +14,10 @@ const router = createBrowserRouter([
     element: <HomePage />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: "/game",
-  //   element: <GamePage />,
-  // },
+  {
+    path: "/game",
+    element: <GamePage />,
+  },
   // {
   //   path: "/user",
   //   element: <UserPage />,

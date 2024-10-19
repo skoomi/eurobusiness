@@ -1,41 +1,31 @@
 import { useRef, useState } from "react";
-import Modal from "../modal/Modal";
+import { useAuthService } from "../../../services/AuthService";
+import Modal from "../../modal/Modal";
 
-export default function Registration() {
-  const [username, setUsername] = useState("");
+export default function Login() {
+  const { login } = useAuthService();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [modalMessage, setModalMessage] = useState("");
+
   const loginModalRef = useRef<HTMLDialogElement>(null);
-  const closeModal = () => {
-    loginModalRef.current?.close();
-  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
-
-    const registerReqBody = { username, email, password };
-    const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
-
     try {
-      const response = await fetch(serverUrl + "/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-        body: JSON.stringify(registerReqBody),
-      });
-      if (response.status === 201) {
-        setModalMessage("Utworzono użytkownika Możesz się zalogować");
+      const responseCode = await login({ email, password });
+      if (responseCode === 200) {
+        setModalMessage("Zalogowano");
         loginModalRef.current?.showModal();
-        // setUsername("");
-        // setEmail("");
-        // setPassword("");
-      } else if (response.status === 422) {
-        setModalMessage("Użytkownik z podanym email juz istnieje");
+      } else if (responseCode === 401) {
+        setModalMessage("Błędne hasło");
         loginModalRef.current?.showModal();
-      } else if (response.status === 400) {
-        setModalMessage("Uzupełnij wszystkie pola");
+      } else if (responseCode === 404) {
+        setModalMessage("Użytkownik nie istnieje");
+        loginModalRef.current?.showModal();
+      } else if (responseCode === 400) {
+        setModalMessage("Uzupełnij oba pola");
         loginModalRef.current?.showModal();
       }
     } catch (error) {
@@ -43,6 +33,10 @@ export default function Registration() {
       setModalMessage("Nieznany błąd");
       loginModalRef.current?.showModal();
     }
+  };
+
+  const closeModal = () => {
+    loginModalRef.current?.close();
   };
 
   return (
@@ -60,16 +54,8 @@ export default function Registration() {
               type="submit"
               className="border-4 border-solid border-black p-4 bg-[#066FB4]"
             >
-              <p className="text-center text-white text-2xl">Zarejestruj się</p>
+              <p className="text-center text-white text-2xl">Zaloguj się</p>
             </button>
-
-            <input
-              className="justify-self-center border-2 border-solid border-[#1E293B] h-12 w-64 text-center "
-              placeholder="username"
-              value={username}
-              onChange={(event) => setUsername(event.currentTarget.value)}
-            />
-
             <input
               className="justify-self-center border-2 border-solid border-[#1E293B] h-12 w-64 text-center "
               placeholder="email"
@@ -85,12 +71,6 @@ export default function Registration() {
               onChange={(event) => setPassword(event.currentTarget.value)}
             />
           </form>
-          <ul className="list-disc justify-self-center">
-            <li>rezerwacja nazwy gracza</li>
-            <li>udział w rankingu</li>
-            <li>możliwość gry ze znajomymi</li>
-            <li>historia rozegranych gier</li>
-          </ul>
         </div>
       </div>
     </>

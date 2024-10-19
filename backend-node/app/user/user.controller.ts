@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { hash } from "../auth/crypt.js";
 import {
   createUser,
@@ -6,7 +7,7 @@ import {
   getTopUsers,
 } from "./users.model.js";
 
-export async function registerUser(req, res) {
+export async function registerUser(req: Request, res: Response) {
   const { username, email, password } = req.body;
 
   // Czy pola nie są puste
@@ -37,7 +38,7 @@ export async function registerUser(req, res) {
   return res.status(201).json({ message: "User registered successfully" });
 }
 
-export async function getTop10Scores(req, res) {
+export async function getTop10Scores(req: Request, res: Response) {
   const top10Users = await getTopUsers(10);
   if (top10Users) {
     return res.status(200).json(

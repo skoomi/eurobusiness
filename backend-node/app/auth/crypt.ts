@@ -11,9 +11,9 @@ export const compare = async (plainPass: string, hash: string) => {
   return await bcrypCompare(plainPass, hash);
 };
 
-export function generateToken(user: { _id: string; email: string }) {
+export function generateToken(user: { id: string; email: string }) {
   return jwt.sign(
-    { id: user._id, email: user.email },
+    { id: user.id, email: user.email },
     `${process.env.JWT_SECRET_KEY}`,
     {
       expiresIn: "1h",

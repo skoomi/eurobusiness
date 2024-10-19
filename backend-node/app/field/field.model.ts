@@ -12,6 +12,6 @@ export async function getAllFields() {
   return await Field.find();
 }
 
-export async function getFieldByNumber(orderNumber) {
+export async function getFieldByNumber(orderNumber: number) {
   return await Field.find({ orderNumber: orderNumber });
 }

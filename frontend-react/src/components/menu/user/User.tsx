@@ -1,4 +1,4 @@
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 export default function User() {
   const { user } = useAuthContext();
@@ -22,7 +22,7 @@ export default function User() {
                   {user.username}
                 </p>
               </div>
-              <p className="ml-4 text-2xl">email: {user.email}</p>
+              <p className="ml-4 text-2xl">email: {user.username}</p>
               <p className="ml-4 text-2xl">games played: {user.gamesPlayed}</p>
               <p className="ml-4 text-2xl">points: {user.points}</p>
             </form>

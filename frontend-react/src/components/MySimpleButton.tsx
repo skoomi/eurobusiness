@@ -1,12 +1,12 @@
-import { useAuthService } from "../../services/AuthService";
-
-export default function Logout() {
-  const { logout } = useAuthService();
-
+type MyButtonProps = {
+  onClick: () => void;
+  text: string;
+};
+export default function MySimpleButton({ onClick, text }: MyButtonProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
 
-    await logout();
+    onClick();
   };
 
   return (
@@ -18,7 +18,7 @@ export default function Logout() {
               type="submit"
               className="border-4 border-solid border-black p-4 bg-[#066FB4]"
             >
-              <p className="text-center text-white text-2xl">Wyloguj się</p>
+              <p className="text-center text-white text-2xl">{text}</p>
             </button>
           </form>
         </div>

@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { getAllFields } from "./field.model.ts";
 
 export async function getFields(req: Request, res: Response) {
