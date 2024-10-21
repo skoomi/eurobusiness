@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
 import Leaderboard from "../components/menu/leaderboard/Leaderboard";
 import Logout from "../components/menu/auth/Logout";
 import Login from "../components/menu/auth/Login";
 import Registration from "../components/menu/auth/Registration";
 import { useAuthContext } from "../contexts/AuthContext";
 import User from "../components/menu/user/User";
-import Play from "../components/menu/play/Play";
+import NewGame from "../components/menu/newGame/NewGame";
 
-interface Field {
-  id: number;
-  name: string;
-  orderNumber: number;
-}
 export default function HomePage() {
   // const [, setFields] = useState<Field[]>([]);
   const { isAuthenticated } = useAuthContext();
@@ -31,7 +25,7 @@ export default function HomePage() {
     <>
       <div className="grid grid-cols-[1fr_2fr_1fr]">
         <div className="menu-left grid gap-2 m-10">
-          {isAuthenticated && <Play />}
+          {isAuthenticated && <NewGame />}
           {isAuthenticated && <User />}
           {!isAuthenticated && (
             <div className="bg-white w-96 p-4 shadow-xl">
