@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useUserService } from "../../../services/UserService";
-import { Score } from "../../../models/LeadreboardScores";
+import { LeaderBoardScore } from "../../../models/LeaderBoardScore";
 
 export default function Leaderboard() {
-  const [top10Scores, setTop10Scores] = useState<Score[]>([]);
+  const [top10Scores, setTop10Scores] = useState<LeaderBoardScore[]>([]);
   const { fetchTop10Scores } = useUserService();
   useEffect(() => {
     const getTopUsers = async () => {

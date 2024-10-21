@@ -15,7 +15,7 @@ export default function NewGame() {
   const { fetchFieldsByPreset } = useFieldService();
   const { startNewGame } = useGameService();
 
-  const [presetName, setPresetName] = useState("default");
+  const [presetName] = useState("default");
   const [fields, setFields] = useState<Field[]>([]);
 
   useEffect(() => {

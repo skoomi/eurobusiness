@@ -10,7 +10,7 @@ export default function GameBoard() {
   const { gameId } = location.state;
 
   const [game, setGame] = useState<Game>();
-  const [currentTurn, setCurrentTurn] = useState(0);
+  const [currentTurn] = useState(0);
 
   const loadGame = async () => {
     const response = await fetch(serverUrl + "/game/" + gameId);
