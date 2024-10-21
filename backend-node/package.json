@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch ./app/index.ts",
-    "prod": "cross-env NODE_ENV=production node index.ts",
+    "prod": "cross-env NODE_ENV=production tsx ./app/index.ts",
     "seed": "tsx ./app/seeders/field_seeder.ts"
   },
   "keywords": [],
