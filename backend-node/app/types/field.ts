@@ -1,7 +1,7 @@
 export type Field = {
   orderNumber: number;
   name: string;
-  type: string;
+  fieldType: string;
   price: number;
   value1h: number;
   value2h: number;

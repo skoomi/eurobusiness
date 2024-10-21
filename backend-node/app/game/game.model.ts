@@ -25,6 +25,7 @@ const gameSchema = new mongoose.Schema({
           field: {
             orderNumber: Number,
             name: String,
+            fieldType: String,
             price: Number,
             value1h: Number,
             value2h: Number,
