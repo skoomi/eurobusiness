@@ -5,6 +5,7 @@ import Registration from "../components/menu/auth/Registration";
 import { useAuthContext } from "../contexts/AuthContext";
 import User from "../components/menu/user/User";
 import NewGame from "../components/menu/newGame/NewGame";
+import LoadGame from "../components/menu/loadGame/LoadGame";
 
 export default function HomePage() {
   // const [, setFields] = useState<Field[]>([]);
@@ -26,6 +27,7 @@ export default function HomePage() {
       <div className="grid grid-cols-[1fr_2fr_1fr]">
         <div className="menu-left grid gap-2 m-10">
           {isAuthenticated && <NewGame />}
+          {isAuthenticated && <LoadGame />}
           {isAuthenticated && <User />}
           {!isAuthenticated && (
             <div className="bg-white w-96 p-4 shadow-xl">

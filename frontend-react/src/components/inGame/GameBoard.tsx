@@ -1,46 +1,53 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PlayerPanel from "./PlayerPanel";
 import { Game } from "../../models/Game";
-import { useLocation } from "react-router-dom";
+import MySimpleButton from "../MySimpleButton";
+import { useGameService } from "../../services/GameService";
+import { TurnSnapshot } from "../../models/TurnSnapshot";
 
-export default function GameBoard() {
-  const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
+type GameProps = {
+  game: Game;
+};
+export default function GameBoard({ game: initGame }: GameProps) {
+  const { endTurn, getGameById } = useGameService();
+  const [game, setGame] = useState<Game>(initGame);
+  const [currentTurn, setCurrentTurn] = useState<TurnSnapshot>(
+    game.history[game.history.length - 1]
+  );
 
-  const location = useLocation(); // Access the state passed via navigate
-  const { gameId } = location.state;
-
-  const [game, setGame] = useState<Game>();
-  const [currentTurn] = useState(0);
-
-  const loadGame = async () => {
-    const response = await fetch(serverUrl + "/game/" + gameId);
-    if (response.ok) {
-      const gameFetched = (await response.json()) as Game;
-      setGame(gameFetched);
+  const handleEndTurn = async () => {
+    const tempTurn = { ...currentTurn, turn: currentTurn.turn + 1 };
+    // tempTurn.players[0].points = 1;
+    await endTurn(tempTurn, game._id);
+    const updatedGame = await getGameById(game._id);
+    if (updatedGame) {
+      setGame(updatedGame);
+      setCurrentTurn(updatedGame.history[updatedGame.history.length - 1]);
     }
   };
-  useEffect(() => {
-    loadGame();
-  }, []);
   return (
     <>
       {game && (
         <div className="grid grid-cols-[1fr_2fr_1fr]">
           <div className="game-left grid gap-2 m-10">
-            {game.history[currentTurn].players[0] && (
-              <PlayerPanel player={game.history[currentTurn].players[0]} />
+            {currentTurn.players[0] && (
+              <PlayerPanel player={currentTurn.players[0]} />
             )}
-            {game.history[currentTurn].players[1] && (
-              <PlayerPanel player={game.history[currentTurn].players[1]} />
+            {currentTurn.players[1] && (
+              <PlayerPanel player={currentTurn.players[1]} />
             )}{" "}
+            <MySimpleButton
+              text="Dev: dodaj turę"
+              onClick={handleEndTurn}
+            ></MySimpleButton>
           </div>
           <div className="game-center">dsd</div>
           <div className="game-right grid gap-2 m-10">
-            {game.history[currentTurn].players[2] && (
-              <PlayerPanel player={game.history[currentTurn].players[2]} />
+            {currentTurn.players[2] && (
+              <PlayerPanel player={currentTurn.players[2]} />
             )}
-            {game.history[currentTurn].players[3] && (
-              <PlayerPanel player={game.history[currentTurn].players[3]} />
+            {currentTurn.players[3] && (
+              <PlayerPanel player={currentTurn.players[3]} />
             )}
           </div>
         </div>

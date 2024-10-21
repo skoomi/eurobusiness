@@ -1,7 +1,7 @@
 import { TurnSnapshot } from "./TurnSnapshot";
 
 export type Game = {
-  _id?: string;
+  _id: string;
   startdate: Date;
   history: TurnSnapshot[];
 };

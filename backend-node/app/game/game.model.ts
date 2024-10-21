@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { TurnSnapshot } from "../types/turnSnapshot.ts";
 
 export type Game = {
+  _id: string;
   startdate: Date;
   history?: TurnSnapshot[];
 };
@@ -47,4 +48,17 @@ export async function createNewGame(game: Game) {
 
 export async function findById(gameId: string) {
   return await Game.findById(gameId);
+}
+
+export async function saveSnapshot(turnSnapshot: TurnSnapshot, id: string) {
+  console.log(id);
+  console.log(turnSnapshot);
+  try {
+    return await Game.updateOne(
+      { _id: id },
+      { $push: { history: turnSnapshot } }
+    );
+  } catch {
+    throw new Error("Błąd zapisu");
+  }
 }

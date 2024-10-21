@@ -7,9 +7,12 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [modalMessage, setModalMessage] = useState("");
 
+  const [modalMessage, setModalMessage] = useState("");
   const loginModalRef = useRef<HTMLDialogElement>(null);
+  const closeModal = () => {
+    loginModalRef.current?.close();
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent form default action
@@ -33,10 +36,6 @@ export default function Login() {
       setModalMessage("Nieznany błąd");
       loginModalRef.current?.showModal();
     }
-  };
-
-  const closeModal = () => {
-    loginModalRef.current?.close();
   };
 
   return (
