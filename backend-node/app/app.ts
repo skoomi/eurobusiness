@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import { router as field_routes } from "./field/field.routes.js";
 import { router as user_routes } from "./user/user.routes.js";
 import { router as auth_routes } from "./auth/auth.routes.js";
+import { router as game_routes } from "./game/game.routes.js";
 // użycie env dev albo prod
 const envFileName = `.env.${process.env.NODE_ENV || "development"}`;
 dotenv.config({ path: envFileName });
@@ -36,6 +37,7 @@ app.use(
 app.use("/auth", auth_routes);
 app.use("/fields", field_routes);
 app.use("/users", user_routes);
+app.use("/game", game_routes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

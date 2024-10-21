@@ -1,8 +1,7 @@
-import { Property } from "./Property";
-import { User } from "./User";
+import { TurnSnapshot } from "./TurnSnapshot";
 
 export type Game = {
-  turn: number;
-  // JAK SIĘ OBCHODZIĆ z PIENIĘDZMI W JS ?
-  players: { user: User; cash: number; properties: Property[] }[];
+  _id?: string;
+  startdate: Date;
+  history: TurnSnapshot[];
 };

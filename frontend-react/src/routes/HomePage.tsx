@@ -13,19 +13,19 @@ interface Field {
   orderNumber: number;
 }
 export default function HomePage() {
-  const [, setFields] = useState<Field[]>([]);
+  // const [, setFields] = useState<Field[]>([]);
   const { isAuthenticated } = useAuthContext();
 
-  useEffect(() => {
-    const fetchFields = async () => {
-      const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
-      const response = await fetch(serverUrl + "/fields");
-      const resField = (await response.json()) as Field[];
-      setFields(resField);
-    };
+  // useEffect(() => {
+  //   const fetchFields = async () => {
+  //     const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
+  //     const response = await fetch(serverUrl + "/fields");
+  //     const resField = (await response.json()) as Field[];
+  //     setFields(resField);
+  //   };
 
-    fetchFields();
-  }, []);
+  //   fetchFields();
+  // }, []);
 
   return (
     <>

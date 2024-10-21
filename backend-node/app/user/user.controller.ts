@@ -32,7 +32,6 @@ export async function registerUser(req: Request, res: Response) {
     email: email,
     password: hashedPassword,
     points: 0,
-    gamesPlayed: 0,
   });
 
   return res.status(201).json({ message: "User registered successfully" });

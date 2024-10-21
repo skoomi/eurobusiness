@@ -10,14 +10,13 @@ function App() {
   const [fields, setFields] = useState<Field[]>([]);
 
   useEffect(() => {
-    console.log("fetchFields");
-    const fetchFields = async () => {
-      const response = await fetch("http://localhost:80/fields");
-      const fields = (await response.json()) as Field[];
-      setFields(fields);
-    };
-
-    fetchFields();
+    // console.log("fetchFields");
+    // const fetchFields = async () => {
+    //   const response = await fetch("http://localhost:80/fields");
+    //   const fields = (await response.json()) as Field[];
+    //   setFields(fields);
+    // };
+    // fetchFields();
   }, []);
 
   //TODO: Przerobić z wykorzystaniem stałych typu render(BOTTOM_ROW)

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, getTop10Scores } from "./user.controller.js";
+import { registerUser, getTop10Scores } from "./user.controller.ts";
 
 export const router = Router();
 

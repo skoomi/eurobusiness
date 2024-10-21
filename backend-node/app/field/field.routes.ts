@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getFields } from "./field.controller.js";
+import { getFieldsByPresetName } from "./field.controller.js";
 
 export const router = Router();
 
-router.get("/", getFields);
+router.get("/:presetName", getFieldsByPresetName);
