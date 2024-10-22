@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import GameBoard from "../components/inGame/GameBoard";
 import { useGameService } from "../services/GameService";
 import { useEffect, useState } from "react";
-import { Game } from "../models/Game";
+import { GameState } from "../models/GameState";
+import Game from "../components/inGame/Game";
 
 export default function GamePage() {
   const location = useLocation();
@@ -10,12 +10,12 @@ export default function GamePage() {
 
   const { getGameById } = useGameService();
 
-  const [game, setGame] = useState<Game>();
+  const [gameState, setGameState] = useState<GameState>();
 
   useEffect(() => {
     const loadGame = async () => {
       const loadedGame = await getGameById(gameId);
-      setGame(loadedGame);
+      setGameState(loadedGame);
     };
 
     loadGame();
@@ -23,7 +23,11 @@ export default function GamePage() {
 
   return (
     <>
-      {game ? <GameBoard game={game}></GameBoard> : <p>Nie znaleziono gry</p>}
+      {gameState ? (
+        <Game gameState={gameState}></Game>
+      ) : (
+        <p>Nie znaleziono gry</p>
+      )}
     </>
   );
 }

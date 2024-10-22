@@ -1,5 +1,4 @@
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { Game } from "../../../models/Game";
 import { useNavigate } from "react-router-dom";
 import { Field } from "../../../models/Field";
 import { useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import { Property } from "../../../models/Property";
 import { useFieldService } from "../../../services/FieldService";
 import { useGameService } from "../../../services/GameService";
 import MySimpleButton from "../../MySimpleButton";
+import { GameState } from "../../../models/GameState";
 
 export default function NewGame() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function NewGame() {
 
     const response = await startNewGame(initGame);
     if (response.status == 201) {
-      const game = (await response.json()) as Game;
+      const game = (await response.json()) as GameState;
       navigate("/game", { state: { gameId: game._id } });
     }
   };
@@ -71,7 +71,7 @@ export default function NewGame() {
           properties: properties,
         },
       ],
-    } as Game;
+    } as GameState;
   };
   return (
     <>

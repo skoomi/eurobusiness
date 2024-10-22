@@ -1,24 +1,24 @@
-import { Game } from "../models/Game";
+import { GameState } from "../models/GameState";
 import { TurnSnapshot } from "../models/TurnSnapshot";
 
 export function useGameService() {
   const serverUrl = import.meta.env.VITE_NODE_SERVER_URL;
 
-  const startNewGame = async (game: Game) => {
+  const startNewGame = async (gameState: GameState) => {
     return await fetch(serverUrl + "/game/startNewGame", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
       credentials: "include", // dodaje ciasteczka
-      body: JSON.stringify({ game: game }),
+      body: JSON.stringify({ game: gameState }),
     });
   };
 
   const getGameById = async (gameId: string) => {
     const response = await fetch(serverUrl + "/game/" + gameId);
     if (response.ok) {
-      return (await response.json()) as Game;
+      return (await response.json()) as GameState;
     }
     throw new Error("Błąd wczytywania gry");
   };
